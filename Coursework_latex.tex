@@ -1,0 +1,1776 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Coursework\_latex}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}123}]:} \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{============================================================}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Course Work                              Robiul Islam      }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{============================================================}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd} 
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{utils} \PY{k}{import} \PY{n}{shuffle}
+          \PY{k+kn}{from} \PY{n+nn}{itertools} \PY{k}{import} \PY{n}{combinations}
+          \PY{k+kn}{import} \PY{n+nn}{bisect}
+          \PY{k+kn}{import} \PY{n+nn}{math}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          
+          \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{table\PYZus{}just\PYZus{}one\PYZus{}last\PYZus{}event\PYZus{}binary\PYZus{}month\PYZus{}sequence.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{;}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} 
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+============================================================
+ Course Work                              Robiul Islam      
+============================================================
+  gender education type locality religion         how\_often generation  \textbackslash{}
+0      f        general     town      yes        sev\_a\_year         9g   
+1      f   professional     town      yes        sev\_a\_year        10g   
+2      f         higher     town      yes        sev\_a\_year         3g   
+3      m   professional     town      yes             never         9g   
+4      f   professional     town      yes  min\_once\_a\_month         3g   
+5      m         higher     town      yes             never         7g   
+6      m        general     town      yes             never         2g   
+7      m         higher     town      yes             never         8g   
+8      f        general     town      yes  min\_once\_a\_month         1g   
+9      m   professional     town      yes             never         8g   
+
+   partner  marriage  break  divorce    {\ldots}      divorce work  \textbackslash{}
+0        0         1      0        0    {\ldots}                 n   
+1        0         1      0        0    {\ldots}                 >   
+2        0         1      0        0    {\ldots}                 >   
+3        1         0      0        0    {\ldots}                 >   
+4        0         1      0        0    {\ldots}                 >   
+5        0         1      0        0    {\ldots}                 >   
+6        0         1      0        0    {\ldots}                 >   
+7        1         1      1        0    {\ldots}                 >   
+8        0         1      0        0    {\ldots}                 >   
+9        0         1      0        0    {\ldots}                 >   
+
+   divorce separation from parents  divorce child  education work  \textbackslash{}
+0                                >              >               <   
+1                                >              >               >   
+2                                >              n               >   
+3                                >              >               <   
+4                                >              n               =   
+5                                >              n               <   
+6                                >              n               =   
+7                                >              >               >   
+8                                >              n               <   
+9                                >              n               <   
+
+   education separation from parents  education child  \textbackslash{}
+0                                  >                <   
+1                                  >                >   
+2                                  >                <   
+3                                  <                <   
+4                                  <                <   
+5                                  >                <   
+6                                  <                <   
+7                                  >                >   
+8                                  <                <   
+9                                  <                <   
+
+   work separation from parents  work child  separation from parents child  \textbackslash{}
+0                             >           >                              <   
+1                             <           <                              <   
+2                             <           <                              <   
+3                             >           <                              <   
+4                             <           <                              <   
+5                             >           <                              <   
+6                             <           <                              <   
+7                             >           <                              <   
+8                             <           <                              <   
+9                             <           <                              <   
+
+     last\_ev  
+0       work  
+1  education  
+2      child  
+3         br  
+4      child  
+5      child  
+6      child  
+7        div  
+8      child  
+9      child  
+
+[10 rows x 51 columns]
+
+    \end{Verbatim}
+
+    \section{Total Shape of dataset}\label{total-shape-of-dataset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{data}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} (5065, 51)
+\end{Verbatim}
+            
+    \section{Total Number of Gender male \&
+Female}\label{total-number-of-gender-male-female}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{data}\PY{o}{.}\PY{n}{gender}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} f    3451
+         m    1614
+         Name: gender, dtype: int64
+\end{Verbatim}
+            #How they represent Society 
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{data}\PY{o}{.}\PY{n}{locality}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} city       2895
+         village    1788
+         town        382
+         Name: locality, dtype: int64
+\end{Verbatim}
+            
+    \section{How they represent religion}\label{how-they-represent-religion}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{data}\PY{o}{.}\PY{n}{religion}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} yes    4200
+         no      865
+         Name: religion, dtype: int64
+\end{Verbatim}
+            
+    \section{How they represent generation : first (those who was born in
+1930 -- 34), second (1935 -- 39), third (1940 -- 44), fourth (1945 --
+49), fifth (1950 -- 54), sixth (1955 -- 59), seventh (1960 -- 64),
+eighth (1965 -- 69), ninth (1970 -- 74), tenth (1975 -- 79), and
+eleventh (1980 --
+84)}\label{how-they-represent-generation-first-those-who-was-born-in-1930-34-second-1935-39-third-1940-44-fourth-1945-49-fifth-1950-54-sixth-1955-59-seventh-1960-64-eighth-1965-69-ninth-1970-74-tenth-1975-79-and-eleventh-1980-84}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{data}\PY{o}{.}\PY{n}{generation}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} 6g     661
+         7g     640
+         5g     606
+         8g     514
+         9g     501
+         2g     499
+         4g     421
+         10g    379
+         3g     333
+         1g     266
+         11g    245
+         Name: generation, dtype: int64
+\end{Verbatim}
+            
+    child represent first child education represent where thery are educated
+sep represent separation from parents br represent breakup div represent
+divorced\\
+work represent first work marriage , partner represent as it is
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{data}\PY{o}{.}\PY{n}{last\PYZus{}ev}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} child        1766
+         education     760
+         sep           682
+         br            562
+         div           473
+         work          330
+         marriage      251
+         partner       241
+         Name: last\_ev, dtype: int64
+\end{Verbatim}
+            
+    \{gender: {[}'f', 'm'{]}, education type: {[}'general', 'higher',
+'professional'{]}, locality: {[}'city', 'town', 'village'{]}, religion:
+{[}'no', 'yes'{]}, how\_often: {[}'min\_once\_a\_month', 'never',
+'once\_a\_week', 'sev\_a\_week', 'sev\_a\_year'{]}, generation:
+{[}'10g', '11g', '1g', '2g', '3g', '4g', '5g', '6g', '7g', '8g',
+'9g'{]},
+
+{[}'\textless{}', '\textgreater{}', 'n','='{]} For example "marriage
+divorc" : if "work" come after "marriage" we put "\textless{}" if "work"
+come before "marriage" we put "\textgreater{}" if both are the same time
+we put "=" if those object is not happend or either one is missing, we
+but "n"
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{data}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} Index(['gender', 'education type', 'locality', 'religion', 'how\_often',
+                'generation', 'partner', 'marriage', 'break', 'divorce', 'child',
+                'sep\_from\_par', 'work', 'education', 'partner.1', 'marriage.1',
+                'break.1', 'divorce.1', 'child.1', 'sep\_from\_par.1', 'work.1',
+                'education.1', 'partner marriage', 'partner break', 'partner divorce',
+                'partner education', 'partner work', 'partner separation from parents',
+                'partner child', 'marriage break', 'marriage divorce',
+                'marriage education', 'marriage work',
+                'marriage separation from parents', 'marriage child', 'break divorce',
+                'break education', 'break work', 'break separation from parents',
+                'break child', 'divorce education', 'divorce work',
+                'divorce separation from parents', 'divorce child', 'education work',
+                'education separation from parents', 'education child',
+                'work separation from parents', 'work child',
+                'separation from parents child', 'last\_ev'],
+               dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{OneHotEncoder}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{compose} \PY{k}{import} \PY{n}{ColumnTransformer}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{Pipeline}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{,} \PY{n}{GridSearchCV}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}\PY{p}{,} \PY{n}{classification\PYZus{}report}
+         
+         \PY{c+c1}{\PYZsh{} Our algorithms, by from the easiest to the hardest to intepret.}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{xgboost}\PY{n+nn}{.}\PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{XGBClassifier}
+\end{Verbatim}
+
+    Define y as terget and X for traning and testing
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{y} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{last\PYZus{}ev}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{child}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{education}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{br}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{div}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{work}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{marriage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{partner}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{7}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{X} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{last\PYZus{}ev}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{partner.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{marriage.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{break.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{divorce.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{child.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                        \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sep\PYZus{}from\PYZus{}par.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{work.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{education.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{X}\PY{o}{.}\PY{n}{dtypes}\PY{p}{,}\PY{n}{X}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} (gender                               object
+          education type                       object
+          locality                             object
+          religion                             object
+          how\_often                            object
+          generation                           object
+          partner                               int64
+          marriage                              int64
+          break                                 int64
+          divorce                               int64
+          child                                 int64
+          sep\_from\_par                          int64
+          work                                  int64
+          education                             int64
+          partner marriage                     object
+          partner break                        object
+          partner divorce                      object
+          partner education                    object
+          partner work                         object
+          partner separation from parents      object
+          partner child                        object
+          marriage break                       object
+          marriage divorce                     object
+          marriage education                   object
+          marriage work                        object
+          marriage separation from parents     object
+          marriage child                       object
+          break divorce                        object
+          break education                      object
+          break work                           object
+          break separation from parents        object
+          break child                          object
+          divorce education                    object
+          divorce work                         object
+          divorce separation from parents      object
+          divorce child                        object
+          education work                       object
+          education separation from parents    object
+          education child                      object
+          work separation from parents         object
+          work child                           object
+          separation from parents child        object
+          dtype: object, False)
+\end{Verbatim}
+            
+    Break down the number and categorical feature
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{num\PYZus{}features} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{partner}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{marriage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{break}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{divorce}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{child}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sep\PYZus{}from\PYZus{}par}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{work}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{education}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{n}{cat\PYZus{}features} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gender}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{education type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{locality}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{religion}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{how\PYZus{}often}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{generation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{partner marriage}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{partner break}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{partner divorce}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{partner education}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{partner work}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{partner separation from parents}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{partner child}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{marriage break}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{marriage divorce}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{marriage education}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{marriage work}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{marriage separation from parents}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{marriage child}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{break divorce}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{break education}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{break work}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{break separation from parents}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{break child}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{divorce education}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{divorce work}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{divorce separation from parents}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{divorce child}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{education work}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{education separation from parents}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{education child}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{work separation from parents}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{work child}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{separation from parents child}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+    We'll define a new ColumnTransformer object (new in sklearn 0.20) that
+keeps our numerical features and apply one hot encoding on our
+categorical features. That will allow us to create a clean pipeline that
+includes both features engineering (one hot encoding here) and training
+the model (a nice way to avoid data leakage)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{preprocessor} \PY{o}{=} \PY{n}{ColumnTransformer}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{numerical}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{passthrough}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{num\PYZus{}features}\PY{p}{)}\PY{p}{,} 
+                                           \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{categorical}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{sparse}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{handle\PYZus{}unknown}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ignore}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                                            \PY{n}{cat\PYZus{}features}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    Now we can define our 4 models as sklearn Pipeline object, containing
+our preprocessing step and training of one given algorithm.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} Logistic Regression}
+         \PY{n}{lr\PYZus{}model} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{preprocessor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{preprocessor}\PY{p}{)}\PY{p}{,} 
+                              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{balanced}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{solver}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{liblinear}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Decision Tree}
+         \PY{n}{dt\PYZus{}model} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{preprocessor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{preprocessor}\PY{p}{)}\PY{p}{,} 
+                              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{balanced}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Random Forest}
+         \PY{n}{rf\PYZus{}model} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{preprocessor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{preprocessor}\PY{p}{)}\PY{p}{,} 
+                              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{balanced}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} XGBoost}
+         \PY{n}{xgb\PYZus{}model} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{preprocessor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{preprocessor}\PY{p}{)}\PY{p}{,} 
+                               \PY{c+c1}{\PYZsh{} Add a scale\PYZus{}pos\PYZus{}weight to make it balanced}
+                               \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{XGBClassifier}\PY{p}{(}\PY{n}{scale\PYZus{}pos\PYZus{}weight}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    Let's split the data into training and test sets.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{stratify}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+\end{Verbatim}
+
+    Eli5 to intepret "white box" models With Logistic Regression First let's
+fine tune our logistic regression and evaluate its performance.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{gs} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{lr\PYZus{}model}\PY{p}{,} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model\PYZus{}\PYZus{}C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{1.3}\PY{p}{,} \PY{l+m+mf}{1.5}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{gs}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:460: FutureWarning: Default multi\_class will be changed to 'auto' in 0.22. Specify the multi\_class option to silence this warning.
+  "this warning.", FutureWarning)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} GridSearchCV(cv=5, error\_score='raise-deprecating',
+                estimator=Pipeline(memory=None,
+              steps=[('preprocessor', ColumnTransformer(n\_jobs=None, remainder='drop', sparse\_threshold=0.3,
+                  transformer\_weights=None,
+                  transformers=[('numerical', 'passthrough', ['partner', 'marriage', 'break', 'divorce', 'child', 'sep\_from\_par', 'work', 'education']), ('categorical', OneHotEnco{\ldots}alty='l2', random\_state=42,
+                   solver='liblinear', tol=0.0001, verbose=0, warm\_start=False))]),
+                fit\_params=None, iid='warn', n\_jobs=-1,
+                param\_grid=\{'model\_\_C': [1, 1.3, 1.5]\}, pre\_dispatch='2*n\_jobs',
+                refit=True, return\_train\_score='warn', scoring='accuracy',
+                verbose=0)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{gs}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{gs}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'model\_\_C': 1.5\}
+0.8569816643159379
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{lr\PYZus{}model}\PY{o}{.}\PY{n}{set\PYZus{}params}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{n}{gs}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} Pipeline(memory=None,
+              steps=[('preprocessor', ColumnTransformer(n\_jobs=None, remainder='drop', sparse\_threshold=0.3,
+                  transformer\_weights=None,
+                  transformers=[('numerical', 'passthrough', ['partner', 'marriage', 'break', 'divorce', 'child', 'sep\_from\_par', 'work', 'education']), ('categorical', OneHotEnco{\ldots}alty='l2', random\_state=42,
+                   solver='liblinear', tol=0.0001, verbose=0, warm\_start=False))])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{lr\PYZus{}model}\PY{o}{.}\PY{n}{get\PYZus{}params}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} \{'memory': None,
+          'steps': [('preprocessor',
+            ColumnTransformer(n\_jobs=None, remainder='drop', sparse\_threshold=0.3,
+                     transformer\_weights=None,
+                     transformers=[('numerical', 'passthrough', ['partner', 'marriage', 'break', 'divorce', 'child', 'sep\_from\_par', 'work', 'education']), ('categorical', OneHotEncoder(categorical\_features=None, categories=None,
+                   dtype=<class 'numpy.float64'>, handle\_unknown='ignore',
+                   n\_values=None, sparse{\ldots} 'education child', 'work separation from parents', 'work child', 'separation from parents child'])])),
+           ('model', LogisticRegression(C=1.5, class\_weight='balanced', dual=False,
+                      fit\_intercept=True, intercept\_scaling=1, max\_iter=100,
+                      multi\_class='warn', n\_jobs=None, penalty='l2', random\_state=42,
+                      solver='liblinear', tol=0.0001, verbose=0, warm\_start=False))],
+          'preprocessor': ColumnTransformer(n\_jobs=None, remainder='drop', sparse\_threshold=0.3,
+                   transformer\_weights=None,
+                   transformers=[('numerical', 'passthrough', ['partner', 'marriage', 'break', 'divorce', 'child', 'sep\_from\_par', 'work', 'education']), ('categorical', OneHotEncoder(categorical\_features=None, categories=None,
+                 dtype=<class 'numpy.float64'>, handle\_unknown='ignore',
+                 n\_values=None, sparse{\ldots} 'education child', 'work separation from parents', 'work child', 'separation from parents child'])]),
+          'model': LogisticRegression(C=1.5, class\_weight='balanced', dual=False,
+                    fit\_intercept=True, intercept\_scaling=1, max\_iter=100,
+                    multi\_class='warn', n\_jobs=None, penalty='l2', random\_state=42,
+                    solver='liblinear', tol=0.0001, verbose=0, warm\_start=False),
+          'preprocessor\_\_n\_jobs': None,
+          'preprocessor\_\_remainder': 'drop',
+          'preprocessor\_\_sparse\_threshold': 0.3,
+          'preprocessor\_\_transformer\_weights': None,
+          'preprocessor\_\_transformers': [('numerical',
+            'passthrough',
+            ['partner',
+             'marriage',
+             'break',
+             'divorce',
+             'child',
+             'sep\_from\_par',
+             'work',
+             'education']),
+           ('categorical', OneHotEncoder(categorical\_features=None, categories=None,
+                   dtype=<class 'numpy.float64'>, handle\_unknown='ignore',
+                   n\_values=None, sparse=False), ['gender',
+             'education type',
+             'locality',
+             'religion',
+             'how\_often',
+             'generation',
+             'partner marriage',
+             'partner break',
+             'partner divorce',
+             'partner education',
+             'partner work',
+             'partner separation from parents',
+             'partner child',
+             'marriage break',
+             'marriage divorce',
+             'marriage education',
+             'marriage work',
+             'marriage separation from parents',
+             'marriage child',
+             'break divorce',
+             'break education',
+             'break work',
+             'break separation from parents',
+             'break child',
+             'divorce education',
+             'divorce work',
+             'divorce separation from parents',
+             'divorce child',
+             'education work',
+             'education separation from parents',
+             'education child',
+             'work separation from parents',
+             'work child',
+             'separation from parents child'])],
+          'preprocessor\_\_numerical': 'passthrough',
+          'preprocessor\_\_categorical': OneHotEncoder(categorical\_features=None, categories=None,
+                 dtype=<class 'numpy.float64'>, handle\_unknown='ignore',
+                 n\_values=None, sparse=False),
+          'preprocessor\_\_categorical\_\_categorical\_features': None,
+          'preprocessor\_\_categorical\_\_categories': None,
+          'preprocessor\_\_categorical\_\_dtype': numpy.float64,
+          'preprocessor\_\_categorical\_\_handle\_unknown': 'ignore',
+          'preprocessor\_\_categorical\_\_n\_values': None,
+          'preprocessor\_\_categorical\_\_sparse': False,
+          'model\_\_C': 1.5,
+          'model\_\_class\_weight': 'balanced',
+          'model\_\_dual': False,
+          'model\_\_fit\_intercept': True,
+          'model\_\_intercept\_scaling': 1,
+          'model\_\_max\_iter': 100,
+          'model\_\_multi\_class': 'warn',
+          'model\_\_n\_jobs': None,
+          'model\_\_penalty': 'l2',
+          'model\_\_random\_state': 42,
+          'model\_\_solver': 'liblinear',
+          'model\_\_tol': 0.0001,
+          'model\_\_verbose': 0,
+          'model\_\_warm\_start': False\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{lr\PYZus{}model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:460: FutureWarning: Default multi\_class will be changed to 'auto' in 0.22. Specify the multi\_class option to silence this warning.
+  "this warning.", FutureWarning)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} Pipeline(memory=None,
+              steps=[('preprocessor', ColumnTransformer(n\_jobs=None, remainder='drop', sparse\_threshold=0.3,
+                  transformer\_weights=None,
+                  transformers=[('numerical', 'passthrough', ['partner', 'marriage', 'break', 'divorce', 'child', 'sep\_from\_par', 'work', 'education']), ('categorical', OneHotEnco{\ldots}alty='l2', random\_state=42,
+                   solver='liblinear', tol=0.0001, verbose=0, warm\_start=False))])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{lr\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} 0.8618421052631579
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+              precision    recall  f1-score   support
+
+           0       0.94      0.91      0.92       530
+           1       0.99      0.95      0.97       228
+           2       0.87      0.95      0.91       205
+           3       0.79      0.86      0.82       169
+           4       0.79      0.68      0.73       142
+           5       0.84      0.97      0.90        99
+           6       0.49      0.64      0.55        75
+           7       0.72      0.46      0.56        72
+
+   micro avg       0.86      0.86      0.86      1520
+   macro avg       0.80      0.80      0.80      1520
+weighted avg       0.87      0.86      0.86      1520
+
+
+    \end{Verbatim}
+
+    Let's use eli5 to visualise the weights associated to each feature:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{k+kn}{import} \PY{n+nn}{eli5}
+         \PY{n}{eli5}\PY{o}{.}\PY{n}{show\PYZus{}weights}\PY{p}{(}\PY{n}{lr\PYZus{}model}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    That gives us the weights associated to each feature, that can be seen
+as the contribution of each feature into predicting that the class will
+be y=1 (the client will subscribe after the campaign). The names for
+each features aren't really helping though, we can pass a list of column
+names to eli5 but we'll need to do a little gymnastics first to extract
+names from our preprocessor in the pipeline (since we've generated new
+features on the fly with the one hot encoder)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{preprocessor} \PY{o}{=} \PY{n}{lr\PYZus{}model}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{preprocessor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{ohe\PYZus{}categories} \PY{o}{=} \PY{n}{preprocessor}\PY{o}{.}\PY{n}{named\PYZus{}transformers\PYZus{}}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{categorical}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{categories\PYZus{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{new\PYZus{}ohe\PYZus{}features} \PY{o}{=} \PY{p}{[}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}col\PYZcb{}}\PY{l+s+s2}{\PYZus{}\PYZus{}}\PY{l+s+si}{\PYZob{}val\PYZcb{}}\PY{l+s+s2}{\PYZdq{}} \PY{k}{for} \PY{n}{col}\PY{p}{,} \PY{n}{vals} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{cat\PYZus{}features}\PY{p}{,} \PY{n}{ohe\PYZus{}categories}\PY{p}{)} \PY{k}{for} \PY{n}{val} \PY{o+ow}{in} \PY{n}{vals}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{all\PYZus{}features} \PY{o}{=} \PY{n}{num\PYZus{}features} \PY{o}{+} \PY{n}{new\PYZus{}ohe\PYZus{}features}
+\end{Verbatim}
+
+    we have a nice list of columns after processing. Let's visualise the
+data in a dataframe just for sanity check:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{lr\PYZus{}model}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{preprocessor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{all\PYZus{}features}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:}    partner  marriage  break  divorce  child  sep\_from\_par  work  education  \textbackslash{}
+         0      1.0       1.0    0.0      0.0    1.0           1.0   1.0        1.0   
+         1      1.0       0.0    0.0      0.0    1.0           1.0   1.0        1.0   
+         2      0.0       0.0    0.0      0.0    1.0           1.0   1.0        0.0   
+         3      1.0       1.0    0.0      1.0    1.0           1.0   1.0        1.0   
+         4      0.0       1.0    0.0      0.0    0.0           1.0   1.0        1.0   
+         
+            gender\_\_f  gender\_\_m                {\ldots}                 \textbackslash{}
+         0        0.0        1.0                {\ldots}                  
+         1        1.0        0.0                {\ldots}                  
+         2        1.0        0.0                {\ldots}                  
+         3        1.0        0.0                {\ldots}                  
+         4        0.0        1.0                {\ldots}                  
+         
+            work separation from parents\_\_>  work separation from parents\_\_n  \textbackslash{}
+         0                              1.0                              0.0   
+         1                              1.0                              0.0   
+         2                              0.0                              0.0   
+         3                              0.0                              0.0   
+         4                              0.0                              0.0   
+         
+            work child\_\_<  work child\_\_=  work child\_\_>  work child\_\_n  \textbackslash{}
+         0            1.0            0.0            0.0            0.0   
+         1            1.0            0.0            0.0            0.0   
+         2            1.0            0.0            0.0            0.0   
+         3            1.0            0.0            0.0            0.0   
+         4            1.0            0.0            0.0            0.0   
+         
+            separation from parents child\_\_<  separation from parents child\_\_=  \textbackslash{}
+         0                               1.0                               0.0   
+         1                               1.0                               0.0   
+         2                               1.0                               0.0   
+         3                               0.0                               0.0   
+         4                               1.0                               0.0   
+         
+            separation from parents child\_\_>  separation from parents child\_\_n  
+         0                               0.0                               0.0  
+         1                               0.0                               0.0  
+         2                               0.0                               0.0  
+         3                               1.0                               0.0  
+         4                               0.0                               0.0  
+         
+         [5 rows x 137 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{eli5}\PY{o}{.}\PY{n}{show\PYZus{}weights}\PY{p}{(}\PY{n}{lr\PYZus{}model}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{feature\PYZus{}names}\PY{o}{=}\PY{n}{all\PYZus{}features}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    Looks like it's picking principally on whether the month is march or
+not, the marketting campaign seem to have been more efficient in march?
+We can also use eli5 to explain a specific prediction, let's pick a row
+in the test data:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{4}
+         \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:}      gender education type locality religion   how\_often generation  partner  \textbackslash{}
+         4087      m   professional     city      yes  sev\_a\_year        10g        0   
+         
+               marriage  break  divorce              {\ldots}               \textbackslash{}
+         4087         1      0        0              {\ldots}                
+         
+               divorce education  divorce work  divorce separation from parents  \textbackslash{}
+         4087                  >             >                                >   
+         
+               divorce child education work education separation from parents  \textbackslash{}
+         4087              n              <                                 <   
+         
+              education child work separation from parents work child  \textbackslash{}
+         4087               <                            <          <   
+         
+              separation from parents child  
+         4087                             <  
+         
+         [1 rows x 42 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:} 0
+\end{Verbatim}
+            
+    That means it belong to child terget We'll need to first transform our
+row into the format expected by our model as eli5 cannot work directly
+with our pipeline. Note: eli5 actually does support pipeline, but with a
+limited number of transformations only. In our pipeline it does not
+support the passthrough transformation (which, funny enough, doesn't do
+anything...)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{eli5}\PY{o}{.}\PY{n}{show\PYZus{}prediction}\PY{p}{(}\PY{n}{lr\PYZus{}model}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} 
+                              \PY{n}{lr\PYZus{}model}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{preprocessor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}
+                              \PY{n}{feature\PYZus{}names}\PY{o}{=}\PY{n}{all\PYZus{}features}\PY{p}{,} \PY{n}{show\PYZus{}feature\PYZus{}values}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}53}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    with a Decision Tree eli5 can also be used to intepret decision trees:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{gs} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{dt\PYZus{}model}\PY{p}{,} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model\PYZus{}\PYZus{}max\PYZus{}depth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,} 
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model\PYZus{}\PYZus{}min\PYZus{}samples\PYZus{}split}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{,} 
+                           \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{gs}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}54}]:} GridSearchCV(cv=5, error\_score='raise-deprecating',
+                estimator=Pipeline(memory=None,
+              steps=[('preprocessor', ColumnTransformer(n\_jobs=None, remainder='drop', sparse\_threshold=0.3,
+                  transformer\_weights=None,
+                  transformers=[('numerical', 'passthrough', ['partner', 'marriage', 'break', 'divorce', 'child', 'sep\_from\_par', 'work', 'education']), ('categorical', OneHotEnco{\ldots}      min\_weight\_fraction\_leaf=0.0, presort=False, random\_state=None,
+                     splitter='best'))]),
+                fit\_params=None, iid='warn', n\_jobs=-1,
+                param\_grid=\{'model\_\_max\_depth': [3, 5, 7], 'model\_\_min\_samples\_split': [2, 5]\},
+                pre\_dispatch='2*n\_jobs', refit=True, return\_train\_score='warn',
+                scoring='accuracy', verbose=0)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{gs}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{gs}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'model\_\_max\_depth': 7, 'model\_\_min\_samples\_split': 5\}
+0.8225669957686883
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{dt\PYZus{}model}\PY{o}{.}\PY{n}{set\PYZus{}params}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{n}{gs}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} Pipeline(memory=None,
+              steps=[('preprocessor', ColumnTransformer(n\_jobs=None, remainder='drop', sparse\_threshold=0.3,
+                  transformer\_weights=None,
+                  transformers=[('numerical', 'passthrough', ['partner', 'marriage', 'break', 'divorce', 'child', 'sep\_from\_par', 'work', 'education']), ('categorical', OneHotEnco{\ldots}      min\_weight\_fraction\_leaf=0.0, presort=False, random\_state=None,
+                     splitter='best'))])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{dt\PYZus{}model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{dt\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} 0.8243421052631579
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+              precision    recall  f1-score   support
+
+           0       0.95      0.82      0.88       530
+           1       0.98      0.92      0.95       228
+           2       0.83      0.93      0.88       205
+           3       0.76      0.80      0.78       169
+           4       0.79      0.73      0.75       142
+           5       0.82      0.90      0.86        99
+           6       0.38      0.80      0.52        75
+           7       0.72      0.46      0.56        72
+
+   micro avg       0.82      0.82      0.82      1520
+   macro avg       0.78      0.79      0.77      1520
+weighted avg       0.85      0.82      0.83      1520
+
+
+    \end{Verbatim}
+
+    For Decision Trees, eli5 only gives feature importance, which does not
+say in what direction a feature impact the predicted outcome.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{eli5}\PY{o}{.}\PY{n}{show\PYZus{}weights}\PY{p}{(}\PY{n}{dt\PYZus{}model}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{feature\PYZus{}names}\PY{o}{=}\PY{n}{all\PYZus{}features}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    Here the most important feature seems to be education. We can also get
+an explanation for a given prediction, this will calculate the
+contribution of each feature in the prediction:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{eli5}\PY{o}{.}\PY{n}{show\PYZus{}prediction}\PY{p}{(}\PY{n}{dt\PYZus{}model}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} 
+                              \PY{n}{dt\PYZus{}model}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{preprocessor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}
+                              \PY{n}{feature\PYZus{}names}\PY{o}{=}\PY{n}{all\PYZus{}features}\PY{p}{,} \PY{n}{show\PYZus{}feature\PYZus{}values}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}61}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    with a Random Forest
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{gs} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{rf\PYZus{}model}\PY{p}{,} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model\PYZus{}\PYZus{}max\PYZus{}depth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{]}\PY{p}{,} 
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model\PYZus{}\PYZus{}min\PYZus{}samples\PYZus{}split}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{,} 
+                           \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{gs}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:} GridSearchCV(cv=5, error\_score='raise-deprecating',
+                estimator=Pipeline(memory=None,
+              steps=[('preprocessor', ColumnTransformer(n\_jobs=None, remainder='drop', sparse\_threshold=0.3,
+                  transformer\_weights=None,
+                  transformers=[('numerical', 'passthrough', ['partner', 'marriage', 'break', 'divorce', 'child', 'sep\_from\_par', 'work', 'education']), ('categorical', OneHotEnco{\ldots}ators=100, n\_jobs=-1, oob\_score=False,
+                     random\_state=None, verbose=0, warm\_start=False))]),
+                fit\_params=None, iid='warn', n\_jobs=-1,
+                param\_grid=\{'model\_\_max\_depth': [10, 15], 'model\_\_min\_samples\_split': [5, 10]\},
+                pre\_dispatch='2*n\_jobs', refit=True, return\_train\_score='warn',
+                scoring='accuracy', verbose=0)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{gs}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{gs}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'model\_\_max\_depth': 15, 'model\_\_min\_samples\_split': 5\}
+0.8473906911142454
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{rf\PYZus{}model}\PY{o}{.}\PY{n}{set\PYZus{}params}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{n}{gs}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:} Pipeline(memory=None,
+              steps=[('preprocessor', ColumnTransformer(n\_jobs=None, remainder='drop', sparse\_threshold=0.3,
+                  transformer\_weights=None,
+                  transformers=[('numerical', 'passthrough', ['partner', 'marriage', 'break', 'divorce', 'child', 'sep\_from\_par', 'work', 'education']), ('categorical', OneHotEnco{\ldots}ators=100, n\_jobs=-1, oob\_score=False,
+                     random\_state=None, verbose=0, warm\_start=False))])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{rf\PYZus{}model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{rf\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}66}]:} 0.8513157894736842
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+              precision    recall  f1-score   support
+
+           0       0.92      0.91      0.92       530
+           1       0.98      0.94      0.96       228
+           2       0.86      0.90      0.88       205
+           3       0.77      0.79      0.78       169
+           4       0.77      0.72      0.74       142
+           5       0.82      0.95      0.88        99
+           6       0.48      0.68      0.56        75
+           7       0.89      0.46      0.61        72
+
+   micro avg       0.85      0.85      0.85      1520
+   macro avg       0.81      0.79      0.79      1520
+weighted avg       0.86      0.85      0.85      1520
+
+
+    \end{Verbatim}
+
+    We can look at the features importance with Eli5 first:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{eli5}\PY{o}{.}\PY{n}{show\PYZus{}weights}\PY{p}{(}\PY{n}{rf\PYZus{}model}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} 
+                           \PY{n}{feature\PYZus{}names}\PY{o}{=}\PY{n}{all\PYZus{}features}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}68}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    Let's train our XGB model
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{n}{gs} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{xgb\PYZus{}model}\PY{p}{,} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model\PYZus{}\PYZus{}max\PYZus{}depth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}
+                                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model\PYZus{}\PYZus{}min\PYZus{}child\PYZus{}weight}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}
+                                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model\PYZus{}\PYZus{}n\PYZus{}estimators}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{25}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{,}
+                           \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{gs}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}90}]:} GridSearchCV(cv=5, error\_score='raise-deprecating',
+                estimator=Pipeline(memory=None,
+              steps=[('preprocessor', ColumnTransformer(n\_jobs=None, remainder='drop', sparse\_threshold=0.3,
+                  transformer\_weights=None,
+                  transformers=[('numerical', 'passthrough', ['partner', 'marriage', 'break', 'divorce', 'child', 'sep\_from\_par', 'work', 'education']), ('categorical', OneHotEnco{\ldots}=0, reg\_lambda=1, scale\_pos\_weight=-1.081934846989141,
+                seed=None, silent=True, subsample=1))]),
+                fit\_params=None, iid='warn', n\_jobs=-1,
+                param\_grid=\{'model\_\_max\_depth': [5, 10], 'model\_\_min\_child\_weight': [5, 10], 'model\_\_n\_estimators': [25]\},
+                pre\_dispatch='2*n\_jobs', refit=True, return\_train\_score='warn',
+                scoring='accuracy', verbose=0)
+\end{Verbatim}
+            
+    Let's see our best parameters and score.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{gs}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{gs}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}\PY{p}{)}
+         \PY{n}{xgb\PYZus{}model}\PY{o}{.}\PY{n}{set\PYZus{}params}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{n}{gs}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}
+         \PY{n}{xgb\PYZus{}model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'model\_\_max\_depth': 5, 'model\_\_min\_child\_weight': 10, 'model\_\_n\_estimators': 25\}
+0.8758815232722144
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}91}]:} Pipeline(memory=None,
+              steps=[('preprocessor', ColumnTransformer(n\_jobs=None, remainder='drop', sparse\_threshold=0.3,
+                  transformer\_weights=None,
+                  transformers=[('numerical', 'passthrough', ['partner', 'marriage', 'break', 'divorce', 'child', 'sep\_from\_par', 'work', 'education']), ('categorical', OneHotEnco{\ldots}=0, reg\_lambda=1, scale\_pos\_weight=-1.081934846989141,
+                seed=None, silent=True, subsample=1))])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{xgb\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}93}]:} 0.8743421052631579
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+              precision    recall  f1-score   support
+
+           0       0.89      0.97      0.93       530
+           1       0.99      0.95      0.97       228
+           2       0.89      0.92      0.90       205
+           3       0.78      0.85      0.81       169
+           4       0.80      0.73      0.76       142
+           5       0.83      0.98      0.90        99
+           6       0.70      0.49      0.58        75
+           7       1.00      0.40      0.57        72
+
+   micro avg       0.87      0.87      0.87      1520
+   macro avg       0.86      0.79      0.80      1520
+weighted avg       0.88      0.87      0.87      1520
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{n}{eli5}\PY{o}{.}\PY{n}{show\PYZus{}weights}\PY{p}{(}\PY{n}{rf\PYZus{}model}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} 
+                           \PY{n}{feature\PYZus{}names}\PY{o}{=}\PY{n}{all\PYZus{}features}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}94}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    In order to explain why the model classifies invidividual observations
+as class, we are going to use the LimeTabularExplainer from the library
+lime, this is the main explainer to use for tabular data. Lime also
+provides an explainer for text data, for images and for time-series.
+When using the tabular explainer, we need to provide our training set as
+parameter so that lime can compute statistics on each feature, either
+mean and std for numerical features, or frequency of values for
+categorical features. Those statistics are used to scale the data and
+generate new perturbated data to train our local linear models on.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{k+kn}{from} \PY{n+nn}{lime}\PY{n+nn}{.}\PY{n+nn}{lime\PYZus{}tabular} \PY{k}{import} \PY{n}{LimeTabularExplainer}
+\end{Verbatim}
+
+    The parameters passed to the explainer are: our training set, we need to
+make sure we use the training set without one hot encoding mode: the
+explainer can be used for classification or regression feature\_names:
+list of labels for our features categorical\_features: list of indexes
+of categorical features categorical\_names: dict mapping each index of
+categorical feature to a list of corresponding labels
+dicretize\_continuous: will discretize numerical values into buckets
+that can be used for explanation. For instance it can tell us that the
+decision was made because distance is in bucket {[}5km, 10km{]} instead
+of telling us distance is an importante feature. First, in order to get
+the categorical\_names parameter we need to build a dictionary with
+indexes of categorical values in original dataset as keys and lists of
+possible categories as values:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{n}{categorical\PYZus{}names} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{cat\PYZus{}features}\PY{p}{:}
+             \PY{n}{categorical\PYZus{}names}\PY{p}{[}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{get\PYZus{}loc}\PY{p}{(}\PY{n}{col}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{new\PYZus{}col}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} 
+                                                                \PY{k}{for} \PY{n}{new\PYZus{}col} \PY{o+ow}{in} \PY{n}{new\PYZus{}ohe\PYZus{}features} 
+                                                                \PY{k}{if} \PY{n}{new\PYZus{}col}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{==} \PY{n}{col}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n}{categorical\PYZus{}names}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}80}]:} \{0: ['f', 'm'],
+          1: ['general', 'higher', 'professional'],
+          2: ['city', 'town', 'village'],
+          3: ['no', 'yes'],
+          4: ['min\_once\_a\_month', 'never', 'once\_a\_week', 'sev\_a\_week', 'sev\_a\_year'],
+          5: ['10g', '11g', '1g', '2g', '3g', '4g', '5g', '6g', '7g', '8g', '9g'],
+          14: ['<', '>', 'n'],
+          15: ['<', 'n'],
+          16: ['<', '=', '>', 'n'],
+          17: ['<', '=', '>', 'n'],
+          18: ['<', '=', '>', 'n'],
+          19: ['<', '=', '>', 'n'],
+          20: ['<', '=', '>', 'n'],
+          21: ['<', '>', 'n'],
+          22: ['<', 'n'],
+          23: ['<', '=', '>', 'n'],
+          24: ['<', '=', '>', 'n'],
+          25: ['<', '=', '>', 'n'],
+          26: ['<', '=', '>', 'n'],
+          27: ['<', '=', '>', 'n'],
+          28: ['<', '=', '>', 'n'],
+          29: ['<', '=', '>', 'n'],
+          30: ['<', '>', 'n'],
+          31: ['<', '=', '>', 'n'],
+          32: ['<', '>', 'n'],
+          33: ['<', '>', 'n'],
+          34: ['<', '=', '>', 'n'],
+          35: ['<', '=', '>', 'n'],
+          36: ['<', '=', '>', 'n'],
+          37: ['<', '=', '>', 'n'],
+          38: ['<', '=', '>', 'n'],
+          39: ['<', '=', '>', 'n'],
+          40: ['<', '=', '>', 'n'],
+          41: ['<', '=', '>', 'n']\}
+\end{Verbatim}
+            
+    More local interpretation with SHAP
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{k+kn}{import} \PY{n+nn}{shap}
+          \PY{c+c1}{\PYZsh{} Need to load JS vis in the notebook}
+          \PY{n}{shap}\PY{o}{.}\PY{n}{initjs}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    SHAP has a generic explainer that works for any model and a
+TreeExplainer optimised for tree based models. Here we will focus on the
+TreeExplainer with our XGB model (the hardest to intepret)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{n}{explainer} \PY{o}{=} \PY{n}{shap}\PY{o}{.}\PY{n}{TreeExplainer}\PY{p}{(}\PY{n}{xgb\PYZus{}model}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    In order to compute the shapley values with the tree explainer, we need
+to call the shap\_values methods passing a dataset. That can be quite
+computationally expensive, so we will only pass 1000 samples picked at
+random.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{n}{observations} \PY{o}{=} \PY{n}{xgb\PYZus{}model}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{preprocessor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}\PY{p}{)}
+          \PY{n}{shap\PYZus{}values} \PY{o}{=} \PY{n}{explainer}\PY{o}{.}\PY{n}{shap\PYZus{}values}\PY{p}{(}\PY{n}{observations}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{n}{shap}\PY{o}{.}\PY{n}{summary\PYZus{}plot}\PY{p}{(}\PY{n}{shap\PYZus{}values}\PY{p}{,} \PY{n}{features}\PY{o}{=}\PY{n}{observations}\PY{p}{,} \PY{n}{feature\PYZus{}names}\PY{o}{=}\PY{n}{all\PYZus{}features}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Coursework_latex_files/Coursework_latex_90_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Red feature attributions push the score higher, while blue feature
+attributions push the score lower
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{n}{shap}\PY{o}{.}\PY{n}{force\PYZus{}plot}\PY{p}{(}\PY{n}{explainer}\PY{o}{.}\PY{n}{expected\PYZus{}value}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{shap\PYZus{}values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{link}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{logit}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}95}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}113}]:} \PY{n}{clean\PYZus{}set} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{1} \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{=}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{0} \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{1} \PY{p}{\PYZcb{}}
+          \PY{n}{clean\PYZus{}set}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}113}]:} \{'<': 0, '>': 1, '=': 0, 'n': 1\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}124}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{LabelEncoder}
+          \PY{n}{lb\PYZus{}make} \PY{o}{=} \PY{n}{LabelEncoder}\PY{p}{(}\PY{p}{)}
+          \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{genderLabel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{lb\PYZus{}make}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gender}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{education type Label}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{lb\PYZus{}make}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{education type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{locality Label}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{lb\PYZus{}make}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{locality}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{religion Label}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{lb\PYZus{}make}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{religion}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{how\PYZus{}often Label}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{lb\PYZus{}make}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{how\PYZus{}often}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{generation Label}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{lb\PYZus{}make}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{generation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{cleanup\PYZus{}nums} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{partner marriage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{clean\PYZus{}set}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{partner break}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{clean\PYZus{}set}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{partner divorce}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{clean\PYZus{}set}\PY{p}{,}          
+           \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{partner education}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{clean\PYZus{}set}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{partner work}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{clean\PYZus{}set}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{partner separation from parents}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{clean\PYZus{}set}\PY{p}{,}
+           \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{partner child}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{clean\PYZus{}set}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{marriage break}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{clean\PYZus{}set}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{marriage divorce}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{clean\PYZus{}set} \PY{p}{,}
+           \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{marriage education}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{clean\PYZus{}set}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{marriage work}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{clean\PYZus{}set}\PY{p}{,}
+           \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{marriage separation from parents}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{clean\PYZus{}set}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{marriage child}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{clean\PYZus{}set}\PY{p}{,}  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{break divorce}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{clean\PYZus{}set}\PY{p}{,}  
+           \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{break education}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{clean\PYZus{}set}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{break work}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{clean\PYZus{}set}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{break separation from parents}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{clean\PYZus{}set}\PY{p}{,} 
+          \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{break child}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{clean\PYZus{}set}\PY{p}{,}  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{divorce education}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{clean\PYZus{}set}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{divorce work}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{clean\PYZus{}set}\PY{p}{,}                         
+           \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{divorce separation from parents}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{clean\PYZus{}set}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{divorce child}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{clean\PYZus{}set}\PY{p}{,} 
+           \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{education work}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{clean\PYZus{}set} \PY{p}{,}  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{education separation from parents}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{clean\PYZus{}set}\PY{p}{,}    
+           \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{education child}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{clean\PYZus{}set}\PY{p}{,}  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{work separation from parents}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{clean\PYZus{}set}\PY{p}{,}         
+           \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{work child}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{clean\PYZus{}set}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{separation from parents child}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{clean\PYZus{}set}
+                         \PY{p}{\PYZcb{}}
+          \PY{n}{data} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{work.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{partner.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{marriage.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{break.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{divorce.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{child.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sep\PYZus{}from\PYZus{}par.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{education.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gender}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{education type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{locality}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{religion}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{how\PYZus{}often}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{generation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{data}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{cleanup\PYZus{}nums}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}124}]:}    partner  marriage  break  divorce  child  sep\_from\_par  work  education  \textbackslash{}
+          0        0         1      0        0      1             1     0          1   
+          1        0         1      0        0      1             1     1          0   
+          2        0         1      0        0      0             1     1          1   
+          3        1         0      0        0      1             1     1          1   
+          4        0         1      0        0      0             1     1          1   
+          
+             partner marriage  partner break        {\ldots}         \textbackslash{}
+          0                 1              1        {\ldots}          
+          1                 1              1        {\ldots}          
+          2                 1              1        {\ldots}          
+          3                 0              0        {\ldots}          
+          4                 1              1        {\ldots}          
+          
+             work separation from parents  work child  separation from parents child  \textbackslash{}
+          0                             1           1                              0   
+          1                             0           0                              0   
+          2                             0           0                              0   
+          3                             1           0                              0   
+          4                             0           0                              0   
+          
+               last\_ev  genderLabel  education type Label  locality Label  \textbackslash{}
+          0       work            0                     0               1   
+          1  education            0                     2               1   
+          2      child            0                     1               1   
+          3         br            1                     2               1   
+          4      child            0                     2               1   
+          
+             religion Label  how\_often Label  generation Label  
+          0               1                4                10  
+          1               1                4                 0  
+          2               1                4                 4  
+          3               1                1                10  
+          4               1                0                 4  
+          
+          [5 rows x 43 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}125}]:} \PY{k+kn}{import} \PY{n+nn}{xgboost}
+          \PY{k+kn}{import} \PY{n+nn}{shap}
+          
+          \PY{c+c1}{\PYZsh{} load JS visualization code to notebook}
+          \PY{n}{shap}\PY{o}{.}\PY{n}{initjs}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} train XGBoost model}
+          \PY{n}{y} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{last\PYZus{}ev}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{child}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{education}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{br}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{div}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{work}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{marriage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{partner}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{7}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{X} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{last\PYZus{}ev}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{model} \PY{o}{=} \PY{n}{xgboost}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{learning\PYZus{}rate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mf}{0.01}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{xgboost}\PY{o}{.}\PY{n}{DMatrix}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} explain the model\PYZsq{}s predictions using SHAP values}
+          \PY{c+c1}{\PYZsh{} (same syntax works for LightGBM, CatBoost, and scikit\PYZhy{}learn models)}
+          \PY{n}{explainer} \PY{o}{=} \PY{n}{shap}\PY{o}{.}\PY{n}{TreeExplainer}\PY{p}{(}\PY{n}{model}\PY{p}{)}
+          \PY{n}{shap\PYZus{}values} \PY{o}{=} \PY{n}{explainer}\PY{o}{.}\PY{n}{shap\PYZus{}values}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} visualize the first prediction\PYZsq{}s explanation (use matplotlib=True to avoid Javascript)}
+          \PY{n}{shap}\PY{o}{.}\PY{n}{force\PYZus{}plot}\PY{p}{(}\PY{n}{explainer}\PY{o}{.}\PY{n}{expected\PYZus{}value}\PY{p}{,} \PY{n}{shap\PYZus{}values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/xgboost/core.py:587: FutureWarning: Series.base is deprecated and will be removed in a future version
+  if getattr(data, 'base', None) is not None and \textbackslash{}
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}125}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    The above explanation shows features each contributing to push the model
+output from the base value (the average model output over the training
+dataset we passed) to the model output. Features pushing the prediction
+higher are shown in red, those pushing the prediction lower are in blue
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}127}]:} \PY{n}{shap}\PY{o}{.}\PY{n}{force\PYZus{}plot}\PY{p}{(}\PY{n}{explainer}\PY{o}{.}\PY{n}{expected\PYZus{}value}\PY{p}{,} \PY{n}{shap\PYZus{}values}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/shap/plots/force.py:111: UserWarning: shap.force\_plot is slow many thousands of rows, try subsampling your data.
+  warnings.warn("shap.force\_plot is slow many thousands of rows, try subsampling your data.")
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}127}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    To understand how a single feature effects the output of the model we
+can plot the SHAP value of that feature vs. the value of the feature for
+all the examples in a dataset. Since SHAP values represent a feature's
+responsibility for a change in the model output, the plot below
+represents the change in predicted first child as RM changes for
+genaration . Vertical dispersion at a single value of RM represents
+interaction effects with other features. To help reveal these
+interactions dependence\_plot automatically selects another feature for
+coloring. In this case coloring by RAD (index of accessibility to radial
+highways) highlights that the average number of rooms per house has less
+impact on home price for areas with a high RAD value.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}128}]:} \PY{n}{shap}\PY{o}{.}\PY{n}{dependence\PYZus{}plot}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{child}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{shap\PYZus{}values}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Coursework_latex_files/Coursework_latex_99_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    o get an overview of which features are most important for a model we
+can plot the SHAP values of every feature for every sample. The plot
+below sorts features by the sum of SHAP value magnitudes over all
+samples, and uses SHAP values to show the distribution of the impacts
+each feature has on the model output. The color represents the feature
+value (red high, blue low). This reveals for example that a high LSTAT
+(\% lower status of the population) lowers the predicted home price.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}129}]:} \PY{c+c1}{\PYZsh{} summarize the effects of all the features}
+          \PY{n}{shap}\PY{o}{.}\PY{n}{summary\PYZus{}plot}\PY{p}{(}\PY{n}{shap\PYZus{}values}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Coursework_latex_files/Coursework_latex_101_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can also just take the mean absolute value of the SHAP values for
+each feature to get a standard bar plot (produces stacked bars for
+multi-class outputs):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}130}]:} \PY{n}{shap}\PY{o}{.}\PY{n}{summary\PYZus{}plot}\PY{p}{(}\PY{n}{shap\PYZus{}values}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{plot\PYZus{}type}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Coursework_latex_files/Coursework_latex_103_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}132}]:} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{stratify}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+\end{Verbatim}
+
+    Deep learning model
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}138}]:} \PY{k+kn}{import} \PY{n+nn}{numpy}
+          \PY{k+kn}{import} \PY{n+nn}{pandas}
+          \PY{k+kn}{import} \PY{n+nn}{random}
+          \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Dense}\PY{p}{,} \PY{n}{Dropout}\PY{p}{,} \PY{n}{Activation}
+          \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}
+          \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{wrappers}\PY{n+nn}{.}\PY{n+nn}{scikit\PYZus{}learn} \PY{k}{import} \PY{n}{KerasClassifier}
+          \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{utils} \PY{k}{import} \PY{n}{np\PYZus{}utils}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{KFold}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{LabelEncoder}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{Pipeline}
+          \PY{n}{encoder} \PY{o}{=} \PY{n}{LabelEncoder}\PY{p}{(}\PY{p}{)}
+          \PY{n}{encoder}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+          \PY{n}{encoded\PYZus{}Y} \PY{o}{=} \PY{n}{encoder}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} convert integers to dummy variables (i.e. one hot encoded)}
+          \PY{n}{dummy\PYZus{}y} \PY{o}{=} \PY{n}{np\PYZus{}utils}\PY{o}{.}\PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{encoded\PYZus{}Y}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{baseline\PYZus{}model}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} create model}
+              \PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+              \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+              \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dropout}\PY{p}{(}\PY{l+m+mf}{0.25}\PY{p}{)}\PY{p}{)}
+              \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{150}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+              \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dropout}\PY{p}{(}\PY{l+m+mf}{0.25}\PY{p}{)}\PY{p}{)}
+              \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+              \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dropout}\PY{p}{(}\PY{l+m+mf}{0.25}\PY{p}{)}\PY{p}{)}
+              \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+              \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+              \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+              \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{softmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} Compile model}
+              \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categorical\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{optimizer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+              \PY{k}{return} \PY{n}{model}
+          
+          
+          \PY{n}{estimator} \PY{o}{=} \PY{n}{KerasClassifier}\PY{p}{(}\PY{n}{build\PYZus{}fn}\PY{o}{=}\PY{n}{baseline\PYZus{}model}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{kfold} \PY{o}{=} \PY{n}{KFold}\PY{p}{(}\PY{n}{n\PYZus{}splits}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+          \PY{n}{results} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{estimator}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{dummy\PYZus{}y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{kfold}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Baseline: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{ (}\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{results}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{results}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+WARNING:tensorflow:From /anaconda3/lib/python3.7/site-packages/tensorflow/python/framework/op\_def\_library.py:263: colocate\_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+WARNING:tensorflow:From /anaconda3/lib/python3.7/site-packages/keras/backend/tensorflow\_backend.py:3445: calling dropout (from tensorflow.python.ops.nn\_ops) with keep\_prob is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `rate` instead of `keep\_prob`. Rate should be set to `rate = 1 - keep\_prob`.
+WARNING:tensorflow:From /anaconda3/lib/python3.7/site-packages/tensorflow/python/ops/math\_ops.py:3066: to\_int32 (from tensorflow.python.ops.math\_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+Baseline: 84.84\% (0.67\%)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}142}]:} \PY{n}{shap}\PY{o}{.}\PY{n}{TreeExplainer}\PY{p}{(}\PY{n}{model}\PY{p}{)}\PY{o}{.}\PY{n}{shap\PYZus{}interaction\PYZus{}values}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}142}]:} array([[[ 2.14727521e-01, -1.57544017e-03,  5.36835054e-03, {\ldots},
+                    0.00000000e+00, -2.13955063e-05,  1.13390386e-04],
+                  [-1.57544762e-03, -2.03365639e-01,  8.69623153e-04, {\ldots},
+                   -1.78825372e-04,  3.01279128e-04, -5.70882112e-04],
+                  [ 5.36835194e-03,  8.69676471e-04, -9.72912274e-03, {\ldots},
+                    0.00000000e+00,  8.66688788e-06,  0.00000000e+00],
+                  {\ldots},
+                  [ 0.00000000e+00, -1.78843737e-04,  0.00000000e+00, {\ldots},
+                    4.16739786e-04,  7.71600753e-07,  3.05557624e-05],
+                  [-2.14427710e-05,  3.01279128e-04,  8.66758637e-06, {\ldots},
+                    7.71848136e-07,  7.10603409e-03,  8.63093883e-05],
+                  [ 1.13353133e-04, -5.70930541e-04,  0.00000000e+00, {\ldots},
+                    3.05558060e-05,  8.63103196e-05, -2.37835944e-02]],
+          
+                 [[ 2.15447187e-01,  4.67509776e-03,  2.13851850e-03, {\ldots},
+                    0.00000000e+00,  2.16361295e-05, -1.66764163e-04],
+                  [ 4.67511639e-03, -1.79479167e-01,  2.58908956e-04, {\ldots},
+                   -8.13835504e-05,  3.46008572e-04,  1.49085058e-03],
+                  [ 2.13854015e-03,  2.58937478e-04, -8.22188146e-03, {\ldots},
+                    0.00000000e+00,  8.40979374e-06,  0.00000000e+00],
+                  {\ldots},
+                  [ 0.00000000e+00, -8.13826919e-05,  0.00000000e+00, {\ldots},
+                    3.16048943e-04,  5.12853148e-07, -4.79098271e-05],
+                  [ 2.16290355e-05,  3.46042216e-04,  8.41030851e-06, {\ldots},
+                    5.12860424e-07, -9.26897483e-05, -4.18533928e-05],
+                  [-1.66766346e-04,  1.49079785e-03,  0.00000000e+00, {\ldots},
+                   -4.79099072e-05, -4.18533746e-05, -1.10720680e-03]],
+          
+                 [[ 2.00508043e-01,  4.02889401e-03,  1.86046213e-03, {\ldots},
+                    0.00000000e+00,  1.15294606e-04, -4.61601536e-04],
+                  [ 4.02906165e-03, -2.06135258e-01, -7.52988504e-04, {\ldots},
+                   -9.93885042e-05,  1.94154750e-03, -7.37442926e-04],
+                  [ 1.86045468e-03, -7.52992928e-04, -7.02854013e-03, {\ldots},
+                    0.00000000e+00,  1.95416505e-05,  0.00000000e+00],
+                  {\ldots},
+                  [ 0.00000000e+00, -9.93907452e-05,  0.00000000e+00, {\ldots},
+                    3.08913091e-04,  4.68106009e-07,  1.94801833e-05],
+                  [ 1.15282834e-04,  1.94157660e-03,  1.95414759e-05, {\ldots},
+                    4.68120561e-07, -6.54972973e-04, -8.72066594e-05],
+                  [-4.61608171e-04, -7.37398863e-04,  0.00000000e+00, {\ldots},
+                    1.94801323e-05, -8.72066303e-05,  2.88029481e-03]],
+          
+                 {\ldots},
+          
+                 [[ 1.74092188e-01,  1.72683969e-03,  2.13851873e-03, {\ldots},
+                    0.00000000e+00, -1.76168396e-05, -2.02110037e-04],
+                  [ 1.72683224e-03, -1.77184761e-01,  3.39410617e-04, {\ldots},
+                    3.47911147e-04,  5.64802322e-04, -1.53645873e-04],
+                  [ 2.13854760e-03,  3.39426100e-04, -7.69741414e-03, {\ldots},
+                    0.00000000e+00,  8.33830563e-06,  0.00000000e+00],
+                  {\ldots},
+                  [ 0.00000000e+00,  3.47919762e-04,  0.00000000e+00, {\ldots},
+                   -1.06788916e-03, -1.70950079e-06, -7.02813268e-05],
+                  [-1.76355243e-05,  5.64768910e-04,  8.33871309e-06, {\ldots},
+                   -1.70951535e-06, -2.49694195e-03, -2.64234841e-05],
+                  [-2.02137977e-04, -1.53671950e-04,  0.00000000e+00, {\ldots},
+                   -7.02855759e-05, -2.64227274e-05, -2.40117237e-02]],
+          
+                 [[ 1.75840348e-01,  1.37460977e-03,  2.13851873e-03, {\ldots},
+                    0.00000000e+00,  8.47782940e-06, -1.30909495e-04],
+                  [ 1.37460977e-03, -1.84429452e-01,  3.48696834e-04, {\ldots},
+                   -7.27988372e-05,  3.35414428e-04,  1.39076356e-03],
+                  [ 2.13855505e-03,  3.48690897e-04, -7.70884752e-03, {\ldots},
+                    0.00000000e+00,  7.92683568e-06,  0.00000000e+00],
+                  {\ldots},
+                  [ 0.00000000e+00, -7.27809966e-05,  0.00000000e+00, {\ldots},
+                    3.13661119e-04,  5.12693077e-07, -4.79677692e-05],
+                  [ 8.46385956e-06,  3.35406512e-04,  7.92753417e-06, {\ldots},
+                    5.12853148e-07,  2.71450216e-03, -2.54949555e-05],
+                  [-1.30932778e-04,  1.39068812e-03,  0.00000000e+00, {\ldots},
+                   -4.79689552e-05, -2.54947226e-05, -9.81625728e-03]],
+          
+                 [[ 1.74092188e-01,  1.72683969e-03,  2.13851873e-03, {\ldots},
+                    0.00000000e+00, -1.76168396e-05, -2.02110037e-04],
+                  [ 1.72683224e-03, -1.77184761e-01,  3.39410617e-04, {\ldots},
+                    3.47911147e-04,  5.64802322e-04, -1.53645873e-04],
+                  [ 2.13854760e-03,  3.39426100e-04, -7.69741414e-03, {\ldots},
+                    0.00000000e+00,  8.33830563e-06,  0.00000000e+00],
+                  {\ldots},
+                  [ 0.00000000e+00,  3.47919762e-04,  0.00000000e+00, {\ldots},
+                   -1.06788916e-03, -1.70950079e-06, -7.02813268e-05],
+                  [-1.76355243e-05,  5.64768910e-04,  8.33871309e-06, {\ldots},
+                   -1.70951535e-06, -2.49694195e-03, -2.64234841e-05],
+                  [-2.02137977e-04, -1.53671950e-04,  0.00000000e+00, {\ldots},
+                   -7.02855759e-05, -2.64227274e-05, -2.40117237e-02]]],
+                dtype=float32)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
